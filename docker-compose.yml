@@ -1,0 +1,30 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8
+    container_name: dendroh
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1681
+    ports:
+      - 3306:3306
+    networks:
+      - mynetwork
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+
+  tomcat:
+    image: eatpaper1429/tomcat:latest
+    container_name: mytomcat
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+
+volumes:
+  mysql_data:
